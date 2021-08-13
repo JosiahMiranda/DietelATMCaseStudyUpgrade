@@ -50,8 +50,8 @@ class BankDatabaseNewTestConstructors {
 	// Default Constructor Tests.
 	
 	@Test
-	@DisplayName("A new Database made from default constructor throws an exception on clear.")
-	void testBlankConstructorThrowsExceptionOnClear() {
+	@DisplayName("1. Test that Default Constructor throws Exception when trying to clear.")
+	void testDefaultConstructorThrowsExceptionOnClear() {
 		BankDatabaseNew bankDatabase = new BankDatabaseNew();
 		assertThrows(Exception.class, () -> {
 			bankDatabase.clear();
@@ -59,15 +59,15 @@ class BankDatabaseNewTestConstructors {
 	}
 	
 	@Test
-	@DisplayName("A new Database made from default constructor is Empty.")
-	void testBlankConstructorIsEmpty() {
+	@DisplayName("2. Test that a new database with default constructor is empty.")
+	void testDefaultConstructorIsEmpty() {
 		BankDatabaseNew bankDatabase = new BankDatabaseNew();
 		assertTrue(bankDatabase.isEmpty());
 	}
 	
 	@Test
-	@DisplayName("A new Database made from default constructor is Size 0.")
-	void testBlankConstructorIsSizeZero() {
+	@DisplayName("3. Test that a new Database made from default constructor is Size 0.")
+	void testDefaultConstructorIsSizeZero() {
 		BankDatabaseNew bankDatabase = new BankDatabaseNew();
 		assertEquals(0, bankDatabase.size());
 	}
@@ -75,21 +75,21 @@ class BankDatabaseNewTestConstructors {
 	// Parameterized Constructor Tests.
 	
 	@Test
-	@DisplayName("A new Database made from parameterized constructor is not Empty.")
+	@DisplayName("4. Test that a new Database made from parameterized constructor is not Empty.")
 	void testSeededCustomerConstructorIsNotEmpty() throws Exception {
 		BankDatabaseNew bankDatabase = new BankDatabaseNew(seedCustomers);
 		assertFalse(bankDatabase.isEmpty());
 	}
 	
 	@Test
-	@DisplayName("A new Database made from parameterized constructor is Size 1")
+	@DisplayName("5. Test that a new Database made from parameterized constructor is Size 1")
 	void testSeededCustomerConstructorIsSizeOne() throws Exception {
 		BankDatabaseNew bankDatabase = new BankDatabaseNew(seedCustomers);
 		assertEquals(1, bankDatabase.size());
 	}
 	
 	@Test
-	@DisplayName("A new Database made from parameterized constructor will throw Exception when seeded customers is empty")
+	@DisplayName("6. Test that parameterized constructor will throw Exception when seeded customers is empty")
 	void testSeededCustomerConstructorWithEmptyCustomersThrowsException() throws Exception {
 		assertThrows(Exception.class, () -> {
 			BankDatabaseNew bankDatabase = new BankDatabaseNew(new ArrayList<CustomerAccount>());
@@ -97,7 +97,7 @@ class BankDatabaseNewTestConstructors {
 	}
 	
 	@Test
-	@DisplayName("A new Database made from parameterized constructor will authenticate an existing user")
+	@DisplayName("7. Test that a new Database made from parameterized constructor will authenticate an existing user")
 	void testSeededCustomerConstructorWillAuthenticateExistingCustomer() throws Exception {
 		BankDatabaseNew bankDatabase = new BankDatabaseNew(seedCustomers);
 		assertTrue(bankDatabase.authenticateUser(1, 1234));
@@ -106,7 +106,7 @@ class BankDatabaseNewTestConstructors {
 	// Customer Add tests
 	
 	@Test
-	@DisplayName("Adding a Customer to a new, Blank database will make the size equal to one.")
+	@DisplayName("7. Test that adding a Customer to a new, blank database will make the size equal to one.")
 	void testBankDatabaseSizeEqualsOneAfterAddCustomer() throws Exception {
 		BankDatabaseNew bankDatabase = new BankDatabaseNew();
 		bankDatabase.add(customer1);
@@ -115,7 +115,7 @@ class BankDatabaseNewTestConstructors {
 	}
 	
 	@Test
-	@DisplayName("Adding a new customer to a database with one existing customer will equal to two.")
+	@DisplayName("8. Test that adding a new customer to a database with one existing customer will equal to two.")
 	void testBankDatabaseSizeEqualsTwoAfterAddCustomerToExistingDatabase() throws Exception {
 		BankDatabaseNew bankDatabase = new BankDatabaseNew(seedCustomers);
 		bankDatabase.add(customer2);
@@ -124,7 +124,7 @@ class BankDatabaseNewTestConstructors {
 	}
 	
 	@Test
-	@DisplayName("Adding a customer to a new, blank database will make isEmpty() assert to false.")
+	@DisplayName("9. Test that adding a customer to a new, blank database will make isEmpty() assert to false.")
 	void testAddCustomerToNewBlankDatabaseIsNotEmpty() throws Exception {
 		BankDatabaseNew bankDatabase = new BankDatabaseNew();
 		bankDatabase.add(customer1);
@@ -133,7 +133,7 @@ class BankDatabaseNewTestConstructors {
 	}
 	
 	@Test
-	@DisplayName("Add Customer will throw an exception when adding an existing customer to the database made with seeded customers.")
+	@DisplayName("10. Test that add Customer will throw an exception when adding an existing customer.")
 	void testSeededCustomerDatabaseThrowsExceptionWhenAddExistingCustomer() throws Exception {
 		BankDatabaseNew bankDatabase = new BankDatabaseNew(seedCustomers);
 		assertThrows(Exception.class, () -> {

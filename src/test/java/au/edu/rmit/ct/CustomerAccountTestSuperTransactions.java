@@ -41,57 +41,68 @@ class CustomerAccountTestSuperTransactions {
 	}
 	
 	@Test
-	@DisplayName("getTotalBalance of a customer with 100 total balance will return 100.")
+	@DisplayName("1. Test that getTotalBalance of a customer with 100 total balance will return 100.")
 	void testCustomerGetTotalBalanceIsCorrect() throws Exception {
 		assertEquals(100, customer1.getTotalBalance());
 	}
 	
 	@Test
-	@DisplayName("getAvailableBalance of a customer with 10 available balance will return 10.")
+	@DisplayName("2. Test that getAvailableBalance of a customer with 10 available balance will return 10.")
 	void testCustomerGetAvailableBalanceIsCorrect() throws Exception {
 		assertEquals(10, customer1.getAvailableBalance());
 	}
 
 	@Test
-	@DisplayName("A customer with 0 total balance will have 10 total balance after being credited 10.")
+	@DisplayName("3. Test that a customer with 0 total balance will have 10 total balance after being credited 10.")
 	void testCustomerWithTotalBalanceZeroIncreasesAfterCredit() throws Exception {
 		customer0.credit(10);
 		assertEquals(10, customer0.getTotalBalance());
 	}
 	
 	@Test
-	@DisplayName("A customer with 100 total balance will have 110 total balance after being credited 10.")
+	@DisplayName("4. Test that a customer with 100 total balance will have 110 total balance after being credited 10.")
 	void testCustomerWithTotalBalanceNotZeroIncreasesAfterCredit() throws Exception {
 		customer1.credit(10);
 		assertEquals(110, customer1.getTotalBalance());
 	}
 	
 	@Test
-	@DisplayName("A customer with 0 total balance will have -10 total balance after being debited 10.")
+	@DisplayName("5. Test that a customer with 0 total balance will have -10 total balance after being debited 10.")
 	void testCustomerWithTotalBalanceZeroDecreasesAfterDebit() throws Exception {
 		customer0.debit(10);
 		assertEquals(-10, customer0.getTotalBalance());
 	}
 	
 	@Test
-	@DisplayName("A customer with 0 available balance will have -10 available balance after being debited 10.")
+	@DisplayName("6. Test that a customer with 0 available balance will have -10 available balance after being debited 10.")
 	void testCustomerWithAvailableBalanceZeroDecreasesAfterDebit() throws Exception {
 		customer0.debit(10);
 		assertEquals(-10, customer0.getAvailableBalance());
 	}
 	
 	@Test
-	@DisplayName("A customer with 100 total balance will have 90 total balance after being debited 10.")
+	@DisplayName("7. Test that a customer with 100 total balance will have 90 total balance after being debited 10.")
 	void testCustomerWithTotalBalanceNotZeroDecreasesAfterDebit() throws Exception {
 		customer1.debit(10);
 		assertEquals(90, customer1.getTotalBalance());
 	}
 	
 	@Test
-	@DisplayName("A customer with 10 available balance will have 0 available balance after being debited 10.")
+	@DisplayName("8.Test that a customer with 10 available balance will have 0 available balance after being debited 10.")
 	void testCustomerWithAvailableBalanceNotZeroDecreasesAfterDebit() throws Exception {
 		customer1.debit(10);
 		assertEquals(0, customer1.getAvailableBalance());
+	}
+	
+	@Test
+	@DisplayName("9.Test that debit and credit work as expected one after the other.")
+	void testTotalAndAvailableBalanceAfterConsecutiveDebitAndCredit() throws Exception {
+		customer1.debit(10);
+		assertEquals(0, customer1.getAvailableBalance());
+		assertEquals(90, customer1.getTotalBalance());
+		customer1.credit(10);
+		assertEquals(0, customer1.getAvailableBalance());
+		assertEquals(100, customer1.getTotalBalance());
 	}
 	
 
