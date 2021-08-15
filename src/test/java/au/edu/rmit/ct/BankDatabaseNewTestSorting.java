@@ -21,6 +21,10 @@ import org.junit.jupiter.api.Test;
 
 class BankDatabaseNewTestSorting {
 	
+	// every test has a manually checked expected result list that
+	// is accounted for, for each and every one of the following static variables.
+	
+	// Customers for total balance tests and first BSB test.
 	static CustomerAccount customer1;
 	static CustomerAccount customer2;
 	static CustomerAccount customer3;
@@ -35,9 +39,43 @@ class BankDatabaseNewTestSorting {
 	static CustomerAccount customer12;
 	static CustomerAccount customer13;
 	
+	// Customers for remaining BSB tests.
+	
+	static CustomerAccount sameBSBCustomer1;
+	static CustomerAccount sameBSBCustomer2;
+	static CustomerAccount sameBSBCustomer3;
+	static CustomerAccount sameBSBCustomer4;
+	static CustomerAccount sameBSBCustomer5;
+	static CustomerAccount sameBSBCustomer6;
+	static CustomerAccount sameBSBCustomer7;
+	static CustomerAccount sameBSBCustomer8;
+	static CustomerAccount sameBSBCustomer9;
+	static CustomerAccount sameBSBCustomer10;
+	
+	static CustomerAccount sameFamilyNameCustomer1;
+	static CustomerAccount sameFamilyNameCustomer2;
+	static CustomerAccount sameFamilyNameCustomer3;
+	static CustomerAccount sameFamilyNameCustomer4;
+	static CustomerAccount sameFamilyNameCustomer5;
+	static CustomerAccount sameFamilyNameCustomer6;
+	static CustomerAccount sameFamilyNameCustomer7;
+	static CustomerAccount sameFamilyNameCustomer8;
+	static CustomerAccount sameFamilyNameCustomer9;
+	static CustomerAccount sameFamilyNameCustomer10;
+	
+	
+	
+	// Lists that have the expected sorted results for each test, that we compare to
+	// check if the sorting methods worked as expected.
+	// if the sorted list equals to the respected, checked sorted list below,
+	// then assertEquals for that true will return true and the test will pass.
+	
 	static ArrayList<CustomerAccount> sortedByTotalBalanceAllDifferentValues;
 	static ArrayList<CustomerAccount> sortedByTotalBalanceSomeSameValues;
 	static ArrayList<CustomerAccount> sortedByBSBAllDifferentBSBAndFamilyNames;
+	static ArrayList<CustomerAccount> sortedByBSBAllSameBSBAndDifferentFamilyNames;
+	static ArrayList<CustomerAccount> sortedByBSBAllDifferentBSBAndSameFamilyNames;
+	
 	
 	static ArrayList<CustomerAccount> seededCustomers;
 
@@ -56,6 +94,28 @@ class BankDatabaseNewTestSorting {
 		customer11 = new CustomerAccount(11, 1222, 10.0, 300.0, "Zed", "Jerry", 444);
 		customer12 = new CustomerAccount(12, 2333, 10.0, 700.0, "Xavier", "Berry", 555);
 		customer13 = new CustomerAccount(13, 3444, 10.0, 1000.0, "Wallace", "Tom", 888);
+		
+		sameBSBCustomer1 = new CustomerAccount(21, 1999, 10.0, 100.0, "Alpha", "Josh", 123);
+		sameBSBCustomer2 = new CustomerAccount(22, 1111, 10.0, 200.0,"Bravo", "Isaiah", 123);
+		sameBSBCustomer3 = new CustomerAccount(23, 2222, 10.0, 300.0, "Charlie", "Holley", 123);
+		sameBSBCustomer4 = new CustomerAccount(24, 3333, 10.0, 400.0, "Delta", "Gary", 123);
+		sameBSBCustomer5 = new CustomerAccount(25, 4444, 10.0, 500.0, "Echo", "Fatimah", 123);
+		sameBSBCustomer6 = new CustomerAccount(26, 5555, 10.0, 600.0, "Foxtrot", "Evelyn", 123);
+		sameBSBCustomer7 = new CustomerAccount(27, 6666, 10.0, 700.0, "Gold", "Deez", 123);
+		sameBSBCustomer8 = new CustomerAccount(28, 7777, 10.0, 800.0, "Hotel", "Cucumber", 123);
+		sameBSBCustomer9 = new CustomerAccount(29, 8888, 10.0, 900.0,  "India", "Banana", 123);
+		sameBSBCustomer10 = new CustomerAccount(20, 9999, 10.0, 1000.0, "Juliet", "Apple", 123);
+		
+		sameFamilyNameCustomer1 = new CustomerAccount(31, 1999, 10.0, 100.0, "same", "Alpha", 000);
+		sameFamilyNameCustomer2 = new CustomerAccount(32, 1111, 10.0, 200.0, "same", "Bravo", 111);
+		sameFamilyNameCustomer3 = new CustomerAccount(33, 2222, 10.0, 300.0, "same", "Charlie", 222);
+		sameFamilyNameCustomer4 = new CustomerAccount(34, 3333, 10.0, 400.0, "same", "Delta", 333);
+		sameFamilyNameCustomer5 = new CustomerAccount(35, 4444, 10.0, 500.0, "same", "Echo", 444);
+		sameFamilyNameCustomer6 = new CustomerAccount(36, 5555, 10.0, 600.0, "same", "Foxtrot", 555);
+		sameFamilyNameCustomer7 = new CustomerAccount(37, 6666, 10.0, 700.0, "same", "Gold", 666);
+		sameFamilyNameCustomer8 = new CustomerAccount(38, 7777, 10.0, 800.0, "same", "Hotel", 777);
+		sameFamilyNameCustomer9 = new CustomerAccount(39, 8888, 10.0, 900.0, "same", "India", 888);
+		sameFamilyNameCustomer10 = new CustomerAccount(310, 9999, 10.0, 1000.0, "same", "Juliet", 999);
 		
 		// customers added in order of total balance.
 		sortedByTotalBalanceAllDifferentValues = new ArrayList<CustomerAccount>();
@@ -99,6 +159,31 @@ class BankDatabaseNewTestSorting {
 		sortedByBSBAllDifferentBSBAndFamilyNames.add(customer9);
 		sortedByBSBAllDifferentBSBAndFamilyNames.add(customer10);
 		
+		// customers added in order of BSB where all have same BSB but different Family Names
+		sortedByBSBAllSameBSBAndDifferentFamilyNames = new ArrayList<CustomerAccount>();
+		sortedByBSBAllSameBSBAndDifferentFamilyNames.add(sameBSBCustomer1);
+		sortedByBSBAllSameBSBAndDifferentFamilyNames.add(sameBSBCustomer2);
+		sortedByBSBAllSameBSBAndDifferentFamilyNames.add(sameBSBCustomer3);
+		sortedByBSBAllSameBSBAndDifferentFamilyNames.add(sameBSBCustomer4);
+		sortedByBSBAllSameBSBAndDifferentFamilyNames.add(sameBSBCustomer5);
+		sortedByBSBAllSameBSBAndDifferentFamilyNames.add(sameBSBCustomer6);
+		sortedByBSBAllSameBSBAndDifferentFamilyNames.add(sameBSBCustomer7);
+		sortedByBSBAllSameBSBAndDifferentFamilyNames.add(sameBSBCustomer8);
+		sortedByBSBAllSameBSBAndDifferentFamilyNames.add(sameBSBCustomer9);
+		sortedByBSBAllSameBSBAndDifferentFamilyNames.add(sameBSBCustomer10);
+		
+		// customers added in order of BSB where all have different BSB but same Family Names
+		sortedByBSBAllDifferentBSBAndSameFamilyNames = new ArrayList<CustomerAccount>();
+		sortedByBSBAllDifferentBSBAndSameFamilyNames.add(sameFamilyNameCustomer1);
+		sortedByBSBAllDifferentBSBAndSameFamilyNames.add(sameFamilyNameCustomer2);
+		sortedByBSBAllDifferentBSBAndSameFamilyNames.add(sameFamilyNameCustomer3);
+		sortedByBSBAllDifferentBSBAndSameFamilyNames.add(sameFamilyNameCustomer4);
+		sortedByBSBAllDifferentBSBAndSameFamilyNames.add(sameFamilyNameCustomer5);
+		sortedByBSBAllDifferentBSBAndSameFamilyNames.add(sameFamilyNameCustomer6);
+		sortedByBSBAllDifferentBSBAndSameFamilyNames.add(sameFamilyNameCustomer7);
+		sortedByBSBAllDifferentBSBAndSameFamilyNames.add(sameFamilyNameCustomer8);
+		sortedByBSBAllDifferentBSBAndSameFamilyNames.add(sameFamilyNameCustomer9);
+		sortedByBSBAllDifferentBSBAndSameFamilyNames.add(sameFamilyNameCustomer10);
 	}
 
 	@AfterAll
@@ -166,6 +251,54 @@ class BankDatabaseNewTestSorting {
 		bankDatabase.sortByBSB();
 		// if the exported list of customers is the same as the manually checked, sorted by total balance list, then it is sorted correctly.
 		assertEquals(sortedByBSBAllDifferentBSBAndFamilyNames, bankDatabase.export());
+	}
+	
+	@Test
+	@DisplayName("4. Test sortByBSB method when sorting customers with same BSBs and different family names.")
+	void testSortByBSBWithAllSameBSBAndAllDifferentFamilyNames() throws Exception {
+		
+		// adding them in reverse order so that we know the sort
+		// changing the seededCustomers here because it is for a different test case.
+		seededCustomers = new ArrayList<CustomerAccount>();
+		seededCustomers.add(0, sameBSBCustomer1);
+		seededCustomers.add(0, sameBSBCustomer2);
+		seededCustomers.add(0, sameBSBCustomer3);
+		seededCustomers.add(0, sameBSBCustomer4);
+		seededCustomers.add(0, sameBSBCustomer5);
+		seededCustomers.add(0, sameBSBCustomer6);
+		seededCustomers.add(0, sameBSBCustomer7);
+		seededCustomers.add(0, sameBSBCustomer8);
+		seededCustomers.add(0, sameBSBCustomer9);
+		seededCustomers.add(0, sameBSBCustomer10);
+		
+		BankDatabaseNew bankDatabase = new BankDatabaseNew(seededCustomers);
+		bankDatabase.sortByBSB();
+		// if the exported list of customers is the same as the manually checked, sorted by total balance list, then it is sorted correctly.
+		assertEquals(sortedByBSBAllSameBSBAndDifferentFamilyNames, bankDatabase.export());
+	}
+	
+	@Test
+	@DisplayName("5. Test sortByBSB method when sorting customers with different BSBs but same family names.")
+	void testSortByBSBWithAllDifferentBSBAndAllSameFamilyNames() throws Exception {
+		
+		// adding them in reverse order so that we know the sort.
+		// changing the seededCustomers here because it is for a different test case.
+		seededCustomers = new ArrayList<CustomerAccount>();
+		seededCustomers.add(0, sameFamilyNameCustomer1);
+		seededCustomers.add(0, sameFamilyNameCustomer2);
+		seededCustomers.add(0, sameFamilyNameCustomer3);
+		seededCustomers.add(0, sameFamilyNameCustomer4);
+		seededCustomers.add(0, sameFamilyNameCustomer5);
+		seededCustomers.add(0, sameFamilyNameCustomer6);
+		seededCustomers.add(0, sameFamilyNameCustomer7);
+		seededCustomers.add(0, sameFamilyNameCustomer8);
+		seededCustomers.add(0, sameFamilyNameCustomer9);
+		seededCustomers.add(0, sameFamilyNameCustomer10);
+		
+		BankDatabaseNew bankDatabase = new BankDatabaseNew(seededCustomers);
+		bankDatabase.sortByBSB();
+		// if the exported list of customers is the same as the manually checked, sorted by total balance list, then it is sorted correctly.
+		assertEquals(sortedByBSBAllDifferentBSBAndSameFamilyNames, bankDatabase.export());
 	}
 	
 	// This test fails because the order in which the customers should be sorted when the TotalBalance is the same is unclear.
